@@ -1,100 +1,134 @@
-Berikut adalah kode README.md yang bisa kamu masukkan ke dalam file README.md di repository GitHub-mu:
+# Backend Test Case
 
-```markdown
-# Library Management System
+## Entities
 
-This project is a backend application developed as a part of a technical test, aimed at managing a library's book lending system. It is built using the **NestJS** framework, with the following key functionalities:
+- Member
+- Book
 
-- **Member Management**: Members can borrow and return books under certain conditions.
-- **Book Management**: Manage the inventory of books, track borrowed books, and display available books.
-- **Penalty System**: Implement penalties for overdue book returns.
-- **API Documentation**: API endpoints are documented using **Swagger**.
-- **Domain-Driven Design**: The project follows Domain-Driven Design principles.
-- **Unit Testing**: Unit tests are implemented to ensure the reliability of the application.
+## Use Case
 
-## Project Structure
+- Members can borrow books with conditions
+    - [x]  Members may not borrow more than 2 books
+    - [x]  Borrowed books are not borrowed by other members
+    - [ ]  Member is currently not being penalized
+- Member returns the book with conditions
+    - [x]  The returned book is a book that the member has borrowed
+    - [ ]  If the book is returned after more than 7 days, the member will be subject to a penalty. Member with penalty cannot able to borrow the book for 3 days
+- Check the book
+    - [x]  Shows all existing books and quantities
+    - [x]  Books that are being borrowed are not counted
+- Member check
+    - [x]  Shows all existing members
+    - [x]  The number of books being borrowed by each member
 
-The project follows the Domain-Driven Design (DDD) pattern:
+## Mock Data
 
-- **Domain**: Contains the core logic, including entities, value objects, and domain services.
-- **Application**: Manages the application logic, including use cases and application services.
-- **Infrastructure**: Handles database operations, third-party integrations, and other technical details.
+- Books
 
-## Installation
-
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/YOUR_USERNAME/library-management.git
-    cd library-management
-    ```
-2. Install dependencies:
-    ```bash
-    npm install
-    ```
-3. Set up the environment variables:
-    - Create a `.env` file in the root directory and configure the database connection and other settings.
-
-4. Run the application:
-    ```bash
-    npm run start
-    ```
-
-## API Documentation
-
-API documentation is provided by Swagger. After running the application, you can access the documentation at:
-```
-http://localhost:3000/api
-```
-
-## Database Schema
-
-The application uses a relational database. The `library_db` database contains the following tables:
-
-### `members` Table
-
-| Column  | Type    | Description          |
-|---------|---------|----------------------|
-| code    | VARCHAR | Unique member code   |
-| name    | VARCHAR | Member's name        |
-| penalty_end_date | DATE | Date until the penalty is active |
-
-### `books` Table
-
-| Column  | Type    | Description          |
-|---------|---------|----------------------|
-| code    | VARCHAR | Unique book code     |
-| title   | VARCHAR | Title of the book    |
-| author  | VARCHAR | Author of the book   |
-| stock   | INT     | Number of copies available |
-
-### `borrowed_books` Table
-
-| Column      | Type    | Description                    |
-|-------------|---------|--------------------------------|
-| member_code | VARCHAR | References `members(code)`     |
-| book_code   | VARCHAR | References `books(code)`       |
-| borrow_date | DATE    | Date when the book was borrowed|
-| return_date | DATE    | Date when the book was returned|
-
-## Testing
-
-Run unit tests using:
-```bash
-npm run test
+```tsx
+[
+    {
+        code: "JK-45",
+        title: "Harry Potter",
+        author: "J.K Rowling",
+        stock: 1
+    },
+    {
+        code: "SHR-1",
+        title: "A Study in Scarlet",
+        author: "Arthur Conan Doyle",
+        stock: 1
+    },
+    {
+        code: "TW-11",
+        title: "Twilight",
+        author: "Stephenie Meyer",
+        stock: 1
+    },
+    {
+        code: "HOB-83",
+        title: "The Hobbit, or There and Back Again",
+        author: "J.R.R. Tolkien",
+        stock: 1
+    },
+    {
+        code: "NRN-7",
+        title: "The Lion, the Witch and the Wardrobe",
+        author: "C.S. Lewis",
+        stock: 1
+    },
+]
 ```
 
-## Algorithms Implemented
+- Members
 
-The project also includes the implementation of the following algorithms:
-
-1. **String Reversal**: Reverse the alphabets in a string while keeping numbers at the end. Example: `"NEGIE1"` becomes `"EIGEN1"`.
-2. **Longest Word**: Find the longest word in a sentence. If multiple words have the same length, any one of them can be returned.
-3. **Word Frequency**: Count the frequency of words in a list based on a query list.
-4. **Matrix Diagonal Difference**: Calculate the difference between the sums of the diagonals in an NxN matrix.
-
-## License
-
-This project is licensed under the MIT License.
+```tsx
+[
+    {
+        code: "M001",
+        name: "Angga",
+    },
+    {
+        code: "M002",
+        name: "Ferry",
+    },
+    {
+        code: "M003",
+        name: "Putri",
+    },
+]
 ```
 
-Ganti `YOUR_USERNAME` dengan username GitHub kamu. Setelah itu, simpan file ini sebagai `README.md` di root directory dari project kamu.
+## Requirements
+
+- [x]  it should be use any framework, but prefered [NestJS](https://nestjs.com/) Framework Or [ExpressJS](https://expressjs.com/)
+- [x]  it should be use Swagger as API Documentation
+- [x]  it should be use Database (SQL/NoSQL)
+- [x]  it should be open sourced on your github repo
+
+## Extras
+
+- [ ]  Implement [DDD Pattern]([https://khalilstemmler.com/articles/categories/domain-driven-design/](https://khalilstemmler.com/articles/categories/domain-driven-design/))
+- [ ]  Implement Unit Testing
+
+## Notes
+- Feel free to add some structure or plugins
+
+
+------
+
+# ALGORITMA
+Kerjakan dengan menggunakan bahasa pemograman yg anda kuasai, buat folder terpisah untuk soal ini
+
+- [x] 1. Terdapat string "NEGIE1", silahkan reverse alphabet nya dengan angka tetap diakhir kata Hasil = "EIGEN1"
+
+- [x] 2. Diberikan contoh sebuah kalimat, silahkan cari kata terpanjang dari kalimat tersebut, jika ada kata dengan panjang yang sama silahkan ambil salah satu
+
+Contoh:  
+```
+const sentence = "Saya sangat senang mengerjakan soal algoritma"
+
+longest(sentence) 
+// mengerjakan: 11 character
+```
+- [x] 3. Terdapat dua buah array yaitu array INPUT dan array QUERY, silahkan tentukan berapa kali kata dalam QUERY terdapat pada array INPUT
+
+Contoh:  
+```
+INPUT = ['xc', 'dz', 'bbb', 'dz']  
+QUERY = ['bbb', 'ac', 'dz']  
+
+OUTPUT = [1, 0, 2] karena kata 'bbb' terdapat 1 pada INPUT, kata 'ac' tidak ada pada INPUT, dan kata 'dz' terdapat 2 pada INPUT
+```
+
+- [x] 4. Silahkan cari hasil dari pengurangan dari jumlah diagonal sebuah matrik NxN Contoh:
+
+Contoh:
+```
+Matrix = [[1, 2, 0], [4, 5, 6], [7, 8, 9]]
+
+diagonal pertama = 1 + 5 + 9 = 15 
+diagonal kedua = 0 + 5 + 7 = 12 
+
+maka hasilnya adalah 15 - 12 = 3
+```
